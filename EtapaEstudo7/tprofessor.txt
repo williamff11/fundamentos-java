@@ -1,0 +1,5 @@
+123;William;100.00;N
+123;William;100.00;N
+1;Wallace;1200.00;S
+2;Nestor;5600.00;S
+333;Beth;990.00;N

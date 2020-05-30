@@ -6,7 +6,7 @@ import java.util.Formatter;
 
 public class InsereDadosNoArquivo {
         public static void main (String[]args){
-            File arquivo = new File("C:/Users/william.freire/Documents/dev/FundamentosDesenvolvimentoJava/arquivo.txt");
+            File arquivo = new File("C:/Users/william.freire/Documents/dev/FundamentosDesenvolvimentoJava/EtapaEstudo7/test.txt");
             Formatter output = null;
             try {
                 output = new Formatter(arquivo);
