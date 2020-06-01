@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/App/App.iml" filepath="$PROJECT_DIR$/App/App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AppEscola-teste/AppEscola-teste.iml" filepath="$PROJECT_DIR$/AppEscola-teste/AppEscola-teste.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Etapa06/Etapa06.iml" filepath="$PROJECT_DIR$/Etapa06/Etapa06.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EtapaEstudo7/EtapaEstudo7.iml" filepath="$PROJECT_DIR$/EtapaEstudo7/EtapaEstudo7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/First/First.iml" filepath="$PROJECT_DIR$/First/First.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FundamentosDesenvolvimentoJava.iml" filepath="$PROJECT_DIR$/FundamentosDesenvolvimentoJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HelloWorld/HelloWorld.iml" filepath="$PROJECT_DIR$/HelloWorld/HelloWorld.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Strings/Strings.iml" filepath="$PROJECT_DIR$/Strings/Strings.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TP01/TP01.iml" filepath="$PROJECT_DIR$/TP01/TP01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TP01-WilliamFreire/TP01-WilliamFreire.iml" filepath="$PROJECT_DIR$/TP01-WilliamFreire/TP01-WilliamFreire.iml" />
+    </modules>
+  </component>
+</project>

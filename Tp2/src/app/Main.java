@@ -1,10 +1,14 @@
-import exceptions.NotaException;
+package app;
 
+import negocio.Aluno;
+import negocio.Pessoa;
+import negocio.Professor;
+
+import java.util.Scanner;
 import java.util.Arrays;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
-public class AppTP1 {
+public class Main {
     /**
      * Variaveis
      */
@@ -13,11 +17,9 @@ public class AppTP1 {
     static final int QNTD = 2;
     static Integer[] opcoesEscolha = {1, 2, 3, 4};
     static Integer[] opcoesCadastro = {1, 4};
-    static String[] names = new String[QNTD];
-    static Float[] avs1 = new Float[QNTD];
-    static Float[] avs2 = new Float[QNTD];
+    static Pessoa[] pessoas = new Pessoa[QNTD];
 
-    public static void main(String[] args) throws InputMismatchException {
+    public static void main(String[] args) {
         in = new Scanner(System.in);
 
         int opcao = 0;
@@ -26,9 +28,9 @@ public class AppTP1 {
             do {
                 System.out.println("");
                 System.out.println("___________________________________________________");
-                System.out.println("[1] Registar as notas de um novo aluno");
-                System.out.println("[2] Consultar boletim de um aluno");
-                System.out.println("[3] Consultar notas da turma");
+                System.out.println("[1] Cadastrar professor");
+                System.out.println("[2] Cadastrar aluno");
+                System.out.println("[3] Consultar situação de um docente/discente.");
                 System.out.println("[4] Sair");
 
                 System.out.println("Escolha a opção: ");
@@ -38,15 +40,15 @@ public class AppTP1 {
                 if (validarOpcao(opcao, opcoesEscolha)) {
                     switch (opcao) {
                         case 1:
-                            callRegistarNotas();
+                            callCadastrarProfessor();
                             break;
 
                         case 2:
-                            callConsultarBoletim();
+                            callCadastrarAluno();
                             break;
 
                         case 3:
-                            callConsultarNotas();
+                            callConsultarPessoa();
                             break;
 
                         default:
@@ -70,13 +72,13 @@ public class AppTP1 {
         return Arrays.asList(opcoesDeEscolha).contains(opcao);
     }
 
-    private static void callRegistarNotas() {
+    private static void callCadastrarProfessor() {
         int opcao = 0;
 
         do {
             System.out.println("");
             System.out.println("_____________________________________________");
-            System.out.println("Registar as notas de um novo aluno.");
+            System.out.println("Cadastrar um professor.");
             System.out.println("[1] Incluir");
             System.out.println("[4] Voltar");
 
@@ -88,7 +90,7 @@ public class AppTP1 {
                 switch (opcao) {
                     case 1:
                         try {
-                            registarNotas();
+                            registarProfessor();
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                             e.printStackTrace();
@@ -105,45 +107,41 @@ public class AppTP1 {
         } while (opcao != 4);
     }
 
-    private static void registarNotas() throws Exception {
+    private static void registarProfessor() throws Exception {
+        String name;
+        String cpf;
+        boolean mestre;
 
         try {
-            System.out.println("Informe o nome do aluno: ");
-            names[next] = in.next();
+            System.out.println("Informe o nome do Professor: ");
+            name = in.next();
 
-            System.out.println("Informe a nota da Primeira avaliação: ");
-            avs1[next] = in.nextFloat();
-            if (avs1[next] < 0){
-                throw new NotaException();
-            }
+            System.out.println("Informe o CPF do professor: ");
+            cpf = in.next();
 
-            System.out.println("Informe a nota da Segunda avaliação: ");
-            avs2[next] = in.nextFloat();
-            if (avs2[next] < 0){
-                throw new NotaException();
-            }
+            System.out.println("O Professor tem mestrado?");
+            mestre = in.nextBoolean();
+
+            pessoas[next] = new Professor(name, cpf, mestre);
+            System.out.println("O professor foi cadastrado com o código: " + next);
             next++;
         } catch (ArrayIndexOutOfBoundsException e) {
             System.err.println("error " + e);
             System.out.println("Cadastro Cheio!");
-        } catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             System.err.println("error " + e);
             System.out.print("O valor informado não é um número!");
         }
     }
 
-    private static boolean existeVaga() {
-        return next < QNTD;
-    }
-
-    private static void callConsultarBoletim() {
+    private static void callCadastrarAluno() {
         int opcao = 0;
 
         do {
             System.out.println("");
             System.out.println("_____________________________________________");
-            System.out.println("Consultar boletim de um aluno.");
-            System.out.println("[1] Consultar");
+            System.out.println("Cadastrar um Aluno.");
+            System.out.println("[1] Incluir");
             System.out.println("[4] Voltar");
 
             System.out.println("Escolha a opção: ");
@@ -153,7 +151,12 @@ public class AppTP1 {
             if (validarOpcao(opcao, opcoesCadastro)) {
                 switch (opcao) {
                     case 1:
-                        consultarBoletim();
+                        try {
+                            registarAluno();
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                            e.printStackTrace();
+                        }
                         break;
 
                     default:
@@ -166,13 +169,75 @@ public class AppTP1 {
         } while (opcao != 4);
     }
 
-    private static void consultarBoletim() {
+    private static void registarAluno() throws Exception {
+        String name;
+        String cpf;
+        String turma;
+
+        try {
+            System.out.println("Informe o nome do Aluno: ");
+            name = in.next();
+
+            System.out.println("Informe o CPF do Aluno: ");
+            cpf = in.next();
+
+            System.out.println("Qual a turma do aluno?");
+            turma = in.next();
+
+            pessoas[next] = new Aluno(name, cpf, turma);
+            System.out.println("O aluno foi cadastrado com o código: " + next);
+            next++;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("error " + e);
+            System.out.println("Cadastro Cheio!");
+        } catch (InputMismatchException e) {
+            System.err.println("error " + e);
+            System.out.print("O valor informado não é um número!");
+        }
+    }
+
+    private static void callConsultarPessoa() {
+        int opcao = 0;
+
+        do {
+            System.out.println("");
+            System.out.println("_____________________________________________");
+            System.out.println("Consultar Pessoa.");
+            System.out.println("[1] Consultar");
+            System.out.println("[4] Voltar");
+
+            System.out.println("Escolha a opção: ");
+            opcao = in.nextInt();
+
+            System.out.println("");
+            if (validarOpcao(opcao, opcoesCadastro)) {
+                switch (opcao) {
+                    case 1:
+                        try {
+                            consultarPessoa();
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                            e.printStackTrace();
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            } else {
+                System.out.println("");
+                System.out.println("Opção inválida! ");
+            }
+        } while (opcao != 4);
+    }
+
+    private static void consultarPessoa() {
         int codigo = 0;
-        System.out.print("Informe o Código do Aluno: ");
+        System.out.print("Informe o Código que deseja consultar: ");
         codigo = in.nextInt();
 
         try {
-            exibirAluno(codigo);
+            exibirPessoa(codigo);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("***************");
             System.err.println("error " + e);
@@ -183,14 +248,10 @@ public class AppTP1 {
         }
     }
 
-    private static boolean validadeCodigo(int codigo) {
-        return codigo >= 0 && codigo < next;
-    }
-
-    private static void exibirAluno() {
-        if (existeAluno()) {
+    private static void exibirPessoa() {
+        if (existePessoa()) {
             for (int i = 0; i < next; i++) {
-                exibirAluno(i);
+                exibirPessoa(i);
                 System.out.println("");
             }
         } else {
@@ -199,64 +260,17 @@ public class AppTP1 {
         }
     }
 
-    private static boolean existeAluno() {
+    private static boolean existePessoa() {
         return next > 0;
     }
 
-    private static void exibirAluno(int codigo) {
-        float media = calcularMedia(codigo);
-        System.out.println("Nome do aluno: " + names[codigo]);
-        System.out.println("Nota da AV1: " + avs1[codigo]);
-        System.out.println("Nota da AV2: " + avs2[codigo]);
-        System.out.println("Média final: " + media);
-        System.out.println("Situação: " + obterSituacao(media));
+    private static void exibirPessoa(int codigo) {
+        pessoas[codigo].consultarSituacao();
+//        System.out.println();
+//        System.out.println("Primeiro Nome: " + pessoas[codigo].getFirstName());
+//        System.out.println("CPF: " + pessoas[codigo].getCpf());
+//        System.out.println("Nota da AV2: " + pessoas[codigo].get);
+//        System.out.println("Média final: " + media);
     }
 
-    private static float calcularMedia(int codigo) {
-        return (avs1[codigo] + avs2[codigo]) / 2;
-    }
-
-    private static String obterSituacao(float media) {
-        if (media < 4) {
-            return "Reprovado";
-        } else if (media >= 4 && media <= 7) {
-            return "Prova Final";
-        } else {
-            return "Aprovado";
-        }
-    }
-
-    private static void callConsultarNotas() {
-        int opcao = 0;
-
-        do {
-            System.out.println("");
-            System.out.println("_____________________________________________");
-            System.out.println("Consultar notas da turma.");
-            System.out.println("[1] Consultar");
-            System.out.println("[4] Voltar");
-
-            System.out.println("Escolha a opção: ");
-            opcao = in.nextInt();
-
-            System.out.println("");
-            if (validarOpcao(opcao, opcoesCadastro)) {
-                switch (opcao) {
-                    case 1:
-                        consultarNotas();
-                        break;
-
-                    default:
-                        break;
-                }
-            } else {
-                System.out.println("");
-                System.out.println("Opção inválida! ");
-            }
-        } while (opcao != 4);
-    }
-
-    private static void consultarNotas() {
-        exibirAluno();
-    }
 }
