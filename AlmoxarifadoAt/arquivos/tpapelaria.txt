@@ -1,0 +1,2 @@
+P;papelaria;200,00;851,00;20/09/2020;amarelo;N
+P;lapis;0,50;0,10;20/09/2000;azul;N

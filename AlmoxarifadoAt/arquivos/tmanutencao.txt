@@ -1,0 +1,4 @@
+M;limpeza;8,50;0,50;20/06/2020;Limpar;S
+M;Limpeza;8,90;0,20;20/09/2020;limpar;S
+M;testeManutencao;8,00;1,00;20/09/2000;teste;N
+M;testetesteteste;11,00;33,00;05/07/2000;aaaaaa;N

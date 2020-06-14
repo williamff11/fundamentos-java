@@ -17,11 +17,24 @@ public class Strings {
 
         System.out.println(s1.equals(s2));
 
-        String string = new String("Infnet");
-        System.out.println(string.indexOf('n'));
-        System.out.println(string.lastIndexOf('n'));
+        String string = new String("William Felicio Freire");
+        int space = string.indexOf(' ');
+        String name = string.substring(0, space);
+        System.out.println(name);
 
-        String string1 = new String("Infnet");
+        int space2 = string.lastIndexOf(' ');
+        String name2 = string.substring(space+1, space2);
+        System.out.println(name2);
+
+        int space3 = string.lastIndexOf(' ');
+        String name3 = string.substring(space3+1);
+        System.out.println(name3);
+//
+//        System.out.println("aqui");
+//        System.out.println(string.indexOf(' '));
+//        System.out.println(string.lastIndexOf('n'));
+
+        String string1 = new String("Infnet é foda");
         System.out.println(string1.substring(2, 4));
 
         String string01 = "Bloco ";
