@@ -14,4 +14,6 @@ public class Constante {
 
     public static final String TPAPELARIA = "arquivos/tpapelaria.txt";
 
+    public static final String TSETOR = "arquivos/tsetor.txt";
+
 }
