@@ -1,6 +1,7 @@
 package br.edu.infnet.testes;
 
 import br.edu.infnet.dao.SolicitacaoDao;
+import br.edu.infnet.exceptions.DataTimeException;
 import br.edu.infnet.model.Funcionario;
 import br.edu.infnet.model.Informatica;
 import br.edu.infnet.model.Produto;
@@ -9,79 +10,90 @@ import br.edu.infnet.model.Solicitacao;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class SolicitacaoTeste {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DataTimeException {
 
-        Scanner in = new Scanner(System.in);
+        try {
 
-        DateTimeFormatter form = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            Scanner in = new Scanner(System.in);
 
-        System.out.println("Informe a Data e hora da Solicitacao: ");
-        LocalDateTime dataSolicitacao = LocalDateTime.parse(in.nextLine(), form);
+            DateTimeFormatter form = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        System.out.println("Informe a Quantidade do produto que necessita: ");
-        int quantidade = in.nextInt();
+            System.out.println("Informe a Data e hora da Solicitacao: ");
+            LocalDateTime dataSolicitacao = LocalDateTime.parse(in.nextLine(), form);
 
-        Solicitacao solicitacao = new Solicitacao();
-        solicitacao.setDataCreate(dataSolicitacao);
-        solicitacao.setQuantidade(quantidade);
+            System.out.println("Informe a Quantidade do produto que necessita: ");
+            int quantidade = in.nextInt();
 
-        System.out.println("Informe o nome do Solicitante: ");
-        String nome = in.next();
+            Solicitacao solicitacao = new Solicitacao();
+            solicitacao.setDataCreate(dataSolicitacao);
+            solicitacao.setQuantidade(quantidade);
 
-        System.out.println("Informe o email do Solicitante: ");
-        String email = in.next();
+            System.out.println("Informe o nome do Solicitante: ");
+            String nome = in.next();
 
-        System.out.println("O Solicitante é Gestor?");
-        boolean gestor = in.nextBoolean();
+            System.out.println("Informe o email do Solicitante: ");
+            String email = in.next();
 
-        Funcionario funcionario = new Funcionario(nome, email, gestor);
+            System.out.println("O Solicitante é Gestor?");
+            boolean gestor = in.nextBoolean();
 
-        solicitacao.setFuncionario(funcionario);
+            Funcionario funcionario = new Funcionario(nome, email, gestor);
 
-        DateTimeFormatter formProd = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            solicitacao.setFuncionario(funcionario);
 
-        System.out.println("Informe a Descrição do Produto: ");
-        String descricao = in.next();
+            DateTimeFormatter formProd = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        System.out.println("Informe o Valor do Produto: ");
-        Float valor = in.nextFloat();
+            System.out.println("Informe a Descrição do Produto: ");
+            String descricao = in.next();
 
-        System.out.println("Informe o Peso do Produto: ");
-        Float peso = in.nextFloat();
+            System.out.println("Informe o Valor do Produto: ");
+            Float valor = in.nextFloat();
 
-        System.out.println("Informe a Data de Vencimento do Produto: ");
-        LocalDate dataValidade = LocalDate.parse(in.next(), formProd);
+            System.out.println("Informe o Peso do Produto: ");
+            Float peso = in.nextFloat();
 
-        System.out.println("Informe a marca do Produto: ");
-        String marca = in.next();
+            System.out.println("Informe a Data de Vencimento do Produto: ");
+            LocalDate dataValidade = LocalDate.parse(in.next(), formProd);
 
-        System.out.println("O Produto é uma peça de Hardware?");
-        boolean hardware = in.nextBoolean();
+            System.out.println("Informe a marca do Produto: ");
+            String marca = in.next();
 
-        Informatica informatica = new Informatica(
-                descricao,
-                valor,
-                peso,
-                dataValidade,
-                marca,
-                hardware
-        );
+            System.out.println("O Produto é uma peça de Hardware?");
+            boolean hardware = in.nextBoolean();
 
-        List<Produto> lista = new ArrayList<Produto>();
-        lista.add(informatica);
+            Informatica informatica = new Informatica(
+                    descricao,
+                    valor,
+                    peso,
+                    dataValidade,
+                    marca,
+                    hardware
+            );
 
-        solicitacao.setProdutos(lista);
+            List<Produto> lista = new ArrayList<Produto>();
+            lista.add(informatica);
 
-        SolicitacaoDao.incluir(solicitacao);
+            solicitacao.setProdutos(lista);
 
-        SolicitacaoDao.obter().imprimir();
+            SolicitacaoDao.incluir(solicitacao);
 
-        in.close();
+            SolicitacaoDao.obter().imprimir();
+
+            in.close();
+
+        } catch (DateTimeParseException e){
+            System.err.println("error " + e);
+            throw new DataTimeException();
+        } catch (InputMismatchException e){
+            System.err.println("error " + e);
+        }
     }
 }
